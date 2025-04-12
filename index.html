@@ -6,7 +6,7 @@
     <title>Amethyst Control Panel</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-    <script src="index.js"></script>
+    <script src="index.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -89,32 +89,34 @@
 
     <div class="section">
         <h2>🔌 Plugins</h2>
+        <button onclick="refreshPluginList()">🔄 Refresh Plugin List</button>
         <div id="pluginList"></div>
     </div>
+
     <script>
-const SERVER_IP = "hypixel.net"; // CHANGE THIS TO YOUR SERVER
-const SERVER_PORT = 25565;
-function checkServerStatus() {
-    fetch(`https://api.mcstatus.io/v2/status/java/${SERVER_IP}:${SERVER_PORT}`)
-        .then(res => res.json())
-        .then(data => {
-            const statusEl = document.getElementById("serverStatus");
-            if (data && data.online) {
-                statusEl.innerText = "🟢 Online";
-                statusEl.style.color = "#4ade80";
-            } else {
-                statusEl.innerText = "🔴 Offline";
-                statusEl.style.color = "#f87171";
-            }
-        })
-        .catch(() => {
-            const statusEl = document.getElementById("serverStatus");
-            statusEl.innerText = "🔴 Offline";
-            statusEl.style.color = "#f87171";
-        });
-}
-checkServerStatus();
-setInterval(checkServerStatus, 10000);
+        const SERVER_IP = "hypixel.net"; // CHANGE THIS TO YOUR SERVER
+        const SERVER_PORT = 25565;
+        function checkServerStatus() {
+            fetch(`https://api.mcstatus.io/v2/status/java/${SERVER_IP}:${SERVER_PORT}`)
+                .then(res => res.json())
+                .then(data => {
+                    const statusEl = document.getElementById("serverStatus");
+                    if (data && data.online) {
+                        statusEl.innerText = "🟢 Online";
+                        statusEl.style.color = "#4ade80";
+                    } else {
+                        statusEl.innerText = "🔴 Offline";
+                        statusEl.style.color = "#f87171";
+                    }
+                })
+                .catch(() => {
+                    const statusEl = document.getElementById("serverStatus");
+                    statusEl.innerText = "🔴 Offline";
+                    statusEl.style.color = "#f87171";
+                });
+        }
+        checkServerStatus();
+        setInterval(checkServerStatus, 10000);
     </script>
 </body>
 </html>
